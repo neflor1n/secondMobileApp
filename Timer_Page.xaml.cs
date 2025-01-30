@@ -11,7 +11,7 @@ public partial class Timer_Page : ContentPage
 	{
 		while (on_off) 
 		{
-			//timer_btn.Text = DateTime.Now.ToString("T");
+			timer_btn.Text = DateTime.Now.ToString("T");
 			await Task.Delay(1000);
 		}
 

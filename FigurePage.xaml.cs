@@ -33,8 +33,10 @@ public partial class FigurePage : ContentPage
 			{
 				Text = buttons[i],
 				ZIndex = i,
-				WidthRequest = DeviceDisplay.Current.MainDisplayInfo.Width / 8.3
-			};
+				WidthRequest = DeviceDisplay.Current.MainDisplayInfo.Width / 8.3,
+                FontFamily = "Minecraft",
+                FontSize = 28
+            };
 			hsl.Add(nupp);
 			nupp.Clicked += Liikumine;
 		}
