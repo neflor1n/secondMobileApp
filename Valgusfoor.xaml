@@ -1,0 +1,29 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="secondMobileApp.Valgusfoor"
+             Title="Valgusfoor">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Заголовок -->
+        <Label x:Name="statusLabel"
+               Text="Valgusfoor on välja lülitatud"
+               FontSize="22"
+               HorizontalOptions="Center" />
+
+        <!-- Контейнер для светофора -->
+        <VerticalStackLayout x:Name="trafficLightContainer"
+                             Spacing="10"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center">
+        </VerticalStackLayout>
+
+        <!-- Кнопки управления -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+            <Button Text="Sisse" Clicked="TurnOnLight"/>
+            <Button Text="Välja" Clicked="TurnOffLight"/>
+            <Button Text="Auto Mode" Clicked="StartAutoMode"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

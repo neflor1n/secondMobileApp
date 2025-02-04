@@ -3,8 +3,8 @@ namespace secondMobileApp;
 
 public partial class StartPage : ContentPage
 {
-	public List<ContentPage> lehed = new List<ContentPage>() { new TextPage(0), new FigurePage(1), new Clicker_Page(2) };
-	public List<String> tekstid = new List<string> { "Tee lahti TextPage", "Tee lahti FigurePage", "Clicker" };
+	public List<ContentPage> lehed = new List<ContentPage>() { new TextPage(0), new FigurePage(1), new Clicker_Page(2), new secondMobileApp.Valgusfoor(3) };
+	public List<String> tekstid = new List<string> { "Tee lahti TextPage", "Tee lahti FigurePage", "Clicker", "Valgusfoor" };
 
 	ScrollView sv;
 	VerticalStackLayout vst;

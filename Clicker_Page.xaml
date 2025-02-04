@@ -5,7 +5,7 @@
              Title="Clicker_Page">
     <VerticalStackLayout>
         <Image
-             Source=".png"
+             Source="clicker_icon.png"
              HeightRequest="185"
              Aspect="AspectFit"
              SemanticProperties.Description="dot net bot in a race car number eight" />
