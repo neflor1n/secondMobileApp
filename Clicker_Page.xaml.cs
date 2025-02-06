@@ -9,6 +9,8 @@ public partial class Clicker_Page : ContentPage
     Label upgradeLabel;
     int upgradeCost = 20;
     bool upgradeAvailable = false;
+    int lvl = 0;
+    int upgradeLvl;
 
     public Clicker_Page(int k)
     {
@@ -48,7 +50,7 @@ public partial class Clicker_Page : ContentPage
 
         Upgradebtn = new Button
         {
-            Text = "Upgrade + 2",
+            Text = $"Upgrade. LVL: {lvl}",
             WidthRequest = 200,
             HeightRequest = 50,
             HorizontalOptions = LayoutOptions.Center,
@@ -60,7 +62,7 @@ public partial class Clicker_Page : ContentPage
         {
             score++;
             scoreLabel.Text = $"Score: {score}";
-            UpdateButtonIcon(); // Обновляем иконку
+            UpdateButtonIcon();
 
             if (score >= upgradeCost && !upgradeAvailable)
             {
@@ -75,6 +77,8 @@ public partial class Clicker_Page : ContentPage
             if (score >= upgradeCost)
             {
                 score -= upgradeCost;
+                lvl++;
+                Upgradebtn.Text = $"Upgrade. LVL: {lvl}";
                 scoreLabel.Text = $"Score: {score}";
                 upgradeCost = (int)(upgradeCost * 2.5);
                 upgradeLabel.Text = $"Upgrade: {upgradeCost} score";
@@ -85,7 +89,7 @@ public partial class Clicker_Page : ContentPage
 
         Content = new Grid
         {
-            BackgroundColor = Colors.Black,
+            BackgroundColor = Colors.Black, 
             Children = {
                 new VerticalStackLayout
                 {
@@ -103,14 +107,14 @@ public partial class Clicker_Page : ContentPage
     {
         score++;
         scoreLabel.Text = $"Score: {score}";
-        UpdateButtonIcon(); // Обновляем иконку
+        UpdateButtonIcon(); 
     }
 
     private void DoubleClick(object sender, EventArgs e)
     {
         score += 2;
         scoreLabel.Text = $"Score: {score}";
-        UpdateButtonIcon(); // Обновляем иконку
+        UpdateButtonIcon(); 
     }
 
     private void UpdateButtonIcon()
