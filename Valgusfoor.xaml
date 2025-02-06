@@ -6,10 +6,18 @@
     <VerticalStackLayout Padding="20" Spacing="15">
 
         <!-- Заголовок -->
-        <Label x:Name="statusLabel"
-               Text="Valgusfoor on välja lülitatud"
-               FontSize="22"
-               HorizontalOptions="Center" />
+        <StackLayout>
+            <Label x:Name="statusLabel"
+           Text="Valgusfoor on välja lülitatud"
+           FontSize="22"
+           HorizontalOptions="Center" />
+
+            <Label x:Name="DayOrNight"
+           Text=""
+           FontSize="12"
+           HorizontalOptions="Center" />    
+
+        </StackLayout>
 
         <!-- Контейнер для светофора -->
         <VerticalStackLayout x:Name="trafficLightContainer"
@@ -19,11 +27,15 @@
         </VerticalStackLayout>
 
         <!-- Кнопки управления -->
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-            <Button Text="Sisse" Clicked="TurnOnLight"/>
-            <Button Text="Välja" Clicked="TurnOffLight"/>
-            <Button Text="Auto Mode" Clicked="StartAutoMode"/>
-        </HorizontalStackLayout>
+        <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto" HorizontalOptions="Center" RowSpacing="10" ColumnSpacing="5">
+            <Button Text="Sisse" Clicked="TurnOnLight" Grid.Row="0" Grid.Column="0" />
+            <Button Text="Välja" Clicked="TurnOffLight" Grid.Row="0" Grid.Column="1" />
+            <Button Text="Auto Mode" Clicked="StartAutoMode" Grid.Row="0" Grid.Column="2" />
+            <Button Text="Päev ja öö mode" Clicked="DayAndNightMode" Grid.Row="1" Grid.Column="0" />
+            <Button Text="Muutke värv halliks" Clicked = "ChangeColorToGray" Grid.Row="1" Grid.Column="1" />
+        </Grid>
+
+
 
     </VerticalStackLayout>
 </ContentPage>
