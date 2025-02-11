@@ -170,62 +170,70 @@ namespace secondMobileApp
             }
 
             isDayAndNightMode = true;
-
-            string[] mode = { "Päev", "Öö" };  // Переключение между режимами
-            int currentModeIndex = 0;  // Индекс текущего режима
+            statusLabel.Text = "Päev ja öö mode aktiivne!";
+            ChangeColorToGray(sender, e);
+            string[] sequence = { "Päev", "Öö" };
+            int index = 0;
 
             while (isDayAndNightMode)
             {
-                statusLabel.Text = "Päev ja öö mood aktiivne!";
-                DayOrNight.Text = mode[currentModeIndex];  // Обновление текста с режимом
-
-                // Переключение между "Päev" и "Öö" 
-                currentModeIndex = (currentModeIndex ) % mode.Length;
-
-                // Если режим "Päev"
-                if (mode[currentModeIndex] == "Päev")
+                if (sequence[index] == "Päev")
                 {
-                    string[] sequence = { "punane", "kollane", "roheline" };
-                    int index = 0;
+                    
+                    circles[0].BackgroundColor = colors["punane"]; 
+                    circles[1].BackgroundColor = Colors.Gray; 
+                    circles[2].BackgroundColor = Colors.Gray;
+                    DayOrNight.Text = "Päev - Punane";
+                    await Task.Delay(1000); 
 
+                    circles[0].BackgroundColor = Colors.Gray; 
+                    circles[1].BackgroundColor = colors["kollane"]; 
+                    DayOrNight.Text = "Päev - Kollane"; 
+                    await Task.Delay(1000); 
 
-                    for (int i = 0; i < circles.Count; i++)
+                    circles[1].BackgroundColor = Colors.Gray; 
+                    circles[2].BackgroundColor = colors["roheline"]; 
+                    DayOrNight.Text = "Päev - Roheline"; 
+                    await Task.Delay(1000); 
+
+                    
+                    for (int i = 0; i < 3; i++)
                     {
-                        circles[i].BackgroundColor = Colors.Gray;
+                        circles[2].BackgroundColor = Colors.Gray; 
+                        await Task.Delay(500); 
+                        circles[2].BackgroundColor = colors["roheline"];
+                        await Task.Delay(500); 
                     }
 
-                    circles[index].BackgroundColor = colors[sequence[index]];
-
-                    if (sequence[index] == "roheline")
-                    {
-                        for (int j = 0; j < 3; j++)
-                        {
-                            await Task.Delay(500);
-                            circles[index].BackgroundColor = Colors.Gray; 
-                            await Task.Delay(500);
-                            circles[index].BackgroundColor = colors["roheline"]; 
-                        }
-                    }
-
-                    index = (index + 1) % sequence.Length;
-
-                    await Task.Delay(2000);
-
+                    
+                    circles[2].BackgroundColor = Colors.Gray; 
+                    DayOrNight.Text = "Öö"; 
+                    index = (index + 1) % sequence.Length; 
                 }
-                // Если режим "Öö"- мигаем только желтым
-                else if (mode[currentModeIndex] == "Öö")
+                else
                 {
-                    for (int j = 0; j < 5; j++)
+                    for (int i = 0; i < 3; i++) 
                     {
-                        circles[1].BackgroundColor = Colors.Gray;
-                        await Task.Delay(500);
+                        circles[0].BackgroundColor = Colors.Gray; 
                         circles[1].BackgroundColor = colors["kollane"];
+                        circles[2].BackgroundColor = Colors.Gray; 
+                        DayOrNight.Text = "Öö - Kollane"; 
                         await Task.Delay(500);
+
+                        circles[1].BackgroundColor = Colors.Gray; 
+                        await Task.Delay(500); 
                     }
+
+                    circles[1].BackgroundColor = colors["kollane"]; 
+                    DayOrNight.Text = "Öö";
                 }
-                await Task.Delay(5000);
+
+                await Task.Delay(2000);
             }
         }
+
+
+
 
         private void ChangeColorToGray(object sender, EventArgs e)
         {
@@ -234,5 +242,6 @@ namespace secondMobileApp
                 circle.BackgroundColor = Colors.Gray;
             }
         }
+
     }
 }

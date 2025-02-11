@@ -89,7 +89,7 @@ public partial class Clicker_Page : ContentPage
 
         Content = new Grid
         {
-            BackgroundColor = Colors.Black, 
+            BackgroundColor = Colors.Black,
             Children = {
                 new VerticalStackLayout
                 {
@@ -107,14 +107,14 @@ public partial class Clicker_Page : ContentPage
     {
         score++;
         scoreLabel.Text = $"Score: {score}";
-        UpdateButtonIcon(); 
+        UpdateButtonIcon();
     }
 
     private void DoubleClick(object sender, EventArgs e)
     {
         score += 2;
         scoreLabel.Text = $"Score: {score}";
-        UpdateButtonIcon(); 
+        UpdateButtonIcon();
     }
 
     private void UpdateButtonIcon()
