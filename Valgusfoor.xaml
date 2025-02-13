@@ -32,7 +32,7 @@
             <Button Text="Välja" Clicked="TurnOffLight" Grid.Row="0" Grid.Column="1" />
             <Button Text="Auto Mode" Clicked="StartAutoMode" Grid.Row="0" Grid.Column="2" />
             <Button Text="Päev ja öö mode" Clicked="DayAndNightMode" Grid.Row="1" Grid.Column="0" />
-            <Button Text="Muutke värv halliks" Clicked = "ChangeColorToGray" Grid.Row="1" Grid.Column="1" />
+            <Button Text="värv halliks" Clicked = "ChangeColorToGray" Grid.Row="1" Grid.Column="1" />
         </Grid>
 
 
