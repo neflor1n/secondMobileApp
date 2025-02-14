@@ -169,4 +169,5 @@ public partial class RGBSlider : ContentPage
         HexLabel.Text = hexCode;
 
     }
+
 }
