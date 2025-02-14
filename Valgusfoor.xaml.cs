@@ -50,6 +50,7 @@ namespace secondMobileApp
                 {
                     Text = key,
                     FontSize = 18,
+                    FontFamily = "Minecraft",
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center
                 };

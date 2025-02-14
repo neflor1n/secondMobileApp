@@ -24,10 +24,11 @@ public partial class TextPage : ContentPage
 		editor = new Editor()
 		{
 			Placeholder = "Vihja: Sisesta siia tekst",
-			PlaceholderColor = Color.FromRgb(250, 200, 100),
+            FontFamily = "Minecraft",
+            PlaceholderColor = Color.FromRgb(250, 200, 100),
 			TextColor = Color.FromRgb(200, 200, 100),
 			BackgroundColor = Color.FromRgb(100, 50, 200),
-			FontSize = 28,
+			FontSize = 22,
 			FontAttributes = FontAttributes.Bold
 		};
 
@@ -41,7 +42,7 @@ public partial class TextPage : ContentPage
 				ZIndex = i,
 				WidthRequest = DeviceDisplay.Current.MainDisplayInfo.Width / 8.3,
                 FontFamily = "Minecraft",
-                FontSize = 28
+                FontSize = 16
             };
 			hsl.Add(b);
             b.Clicked += Liikumine;

@@ -21,7 +21,8 @@ public partial class Clicker_Page : ContentPage
         scoreLabel = new Label
         {
             Text = "Score: 0",
-            FontSize = 24,
+            FontFamily = "Minecraft",
+            FontSize = 18,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Start,
             TextColor = Colors.White
@@ -30,7 +31,8 @@ public partial class Clicker_Page : ContentPage
         upgradeLabel = new Label
         {
             Text = $"Upgrade: {upgradeCost} score",
-            FontSize = 18,
+            FontFamily = "Minecraft",
+            FontSize = 14,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Start,
             TextColor = Colors.White,
@@ -51,6 +53,7 @@ public partial class Clicker_Page : ContentPage
         Upgradebtn = new Button
         {
             Text = $"Upgrade. LVL: {lvl}",
+            FontFamily = "Minecraft",
             WidthRequest = 200,
             HeightRequest = 50,
             HorizontalOptions = LayoutOptions.Center,

@@ -37,7 +37,7 @@ public partial class StartPage : ContentPage
                 BackgroundColor = Color.FromArgb("#03405C"),
                 TextColor = Color.FromArgb("#38ebcb"),
                 FontFamily = "Minecraft",
-                FontSize = 32,
+                FontSize = 14,
                 BorderWidth = 10,
                 ZIndex = i
             };

@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 
 namespace secondMobileApp;
 
@@ -6,6 +6,7 @@ public partial class RGBSlider : ContentPage
 {
     private Slider redSlider, greenSlider, blueSlider;
     private BoxView colorDisplay;
+    private Label HexLabel;
 
     public RGBSlider(int k)
     {
@@ -36,24 +37,42 @@ public partial class RGBSlider : ContentPage
             WidthRequest = 400
         };
 
+        HexLabel = new Label
+        {
+            Text = "#000000",
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center,
+            FontFamily = "Minecraft",
+            FontSize = 24
+        };
+
+        var tapGestureRecognizer = new TapGestureRecognizer();
+        tapGestureRecognizer.Tapped += (s, e) =>
+        {
+            Clipboard.SetTextAsync(HexLabel.Text); // это что бы скопировать hexCode в буфер обмена
+            DisplayAlert("Copied", $"HEX code {HexLabel.Text} copied to clipboard", "OK");
+        };
+
+        HexLabel.GestureRecognizers.Add(tapGestureRecognizer);
+
         var layout = new VerticalStackLayout
         {
             Padding = 20,
             Spacing = 10,
             Children =
             {
-                new Label { Text = "Red" },
+                new Label { FontFamily = "Minecraft", Text = "Red" },
                 redSlider,
-                new Label { Text = "Green" },
+                new Label { FontFamily = "Minecraft", Text = "Green" },
                 greenSlider,
-                new Label { Text = "Blue" },
+                new Label { FontFamily = "Minecraft", Text = "Blue" },
                 blueSlider
             }
         };
 
         var colorDisplayLayout = new VerticalStackLayout
         {
-            Children = { colorDisplay }
+            Children = { HexLabel, colorDisplay  }
         };
 
         var mainLayout = new VerticalStackLayout
@@ -62,6 +81,9 @@ public partial class RGBSlider : ContentPage
             Spacing = 10,
             Children = { layout, colorDisplayLayout }
         };
+        
+         
+        
 
         redSlider.ValueChanged += (sender, e) => UpdateColor();
         greenSlider.ValueChanged += (sender, e) => UpdateColor();
@@ -77,5 +99,9 @@ public partial class RGBSlider : ContentPage
         var blue = (int)blueSlider.Value;
 
         colorDisplay.Color = Color.FromRgb(red, green, blue);
+
+        string hexCode = $"#{red:X2}{green:X2}{blue:X2}";
+        HexLabel.Text = hexCode;
+
     }
 }
