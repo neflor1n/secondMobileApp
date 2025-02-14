@@ -12,4 +12,17 @@
         ContentTemplate="{DataTemplate local:StartPage}"
         Route="StartPage" />
 
+    <TabBar>
+        <ShellContent Title="Avaleht" ContentTemplate="{DataTemplate local:StartPage}" />
+        <ShellContent Title="TextPage" ContentTemplate="{DataTemplate local:TextPage}" />
+        <ShellContent Title="FigurePage" ContentTemplate="{DataTemplate local:FigurePage}" />
+        <ShellContent Title="Clicker" ContentTemplate="{DataTemplate local:Clicker_Page}" />
+        <ShellContent Title="Valgusfoor" ContentTemplate="{DataTemplate local:Valgusfoor}" />
+        <ShellContent Title="DatePicker" ContentTemplate="{DataTemplate local:Datetime_Page}" />
+        <ShellContent Title="Stepper" ContentTemplate="{DataTemplate local:StepperSliderPage}" />
+        <ShellContent Title="RGB Slider" ContentTemplate="{DataTemplate local:RGBSlider}" />
+    </TabBar>
+
+
+
 </Shell>

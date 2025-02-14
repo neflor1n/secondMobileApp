@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿
+using Microsoft.Maui.Controls;
 
 namespace secondMobileApp;
 
@@ -7,7 +8,7 @@ public partial class RGBSlider : ContentPage
     private Slider redSlider, greenSlider, blueSlider;
     private BoxView colorDisplay;
     private Label HexLabel;
-
+    private Button SaveBtn;
     public RGBSlider(int k)
     {
         redSlider = new Slider
@@ -46,14 +47,54 @@ public partial class RGBSlider : ContentPage
             FontSize = 24
         };
 
-        var tapGestureRecognizer = new TapGestureRecognizer();
-        tapGestureRecognizer.Tapped += (s, e) =>
+        SaveBtn = new Button
         {
-            Clipboard.SetTextAsync(HexLabel.Text); // это что бы скопировать hexCode в буфер обмена
-            DisplayAlert("Copied", $"HEX code {HexLabel.Text} copied to clipboard", "OK");
+            WidthRequest = 150,
+            HeightRequest = 40,
+            CornerRadius = 15,
+            Text = "Salvesta HexCode",
+            FontFamily = "Minecraft",
+            FontSize = 14
+
         };
 
-        HexLabel.GestureRecognizers.Add(tapGestureRecognizer);
+        SaveBtn.Clicked += async (s, e) =>
+        {
+            await Clipboard.SetTextAsync(HexLabel.Text);
+            SaveBtn.Text = "Salvestatud";
+
+        };
+
+
+        var inputHex = new Entry
+        {
+            Placeholder = "Your Hexcode here...",
+            FontFamily = "Minecraft",
+            TextColor = Colors.Black,
+            FontSize = 16
+
+        };
+
+        inputHex.TextChanged += (s, e) =>
+        {
+            string hex = e.NewTextValue;
+            if (IsValidHex(hex))
+            {
+                colorDisplay.Color = Color.FromArgb(hex);
+                HexLabel.Text = hex;
+                /*
+                int red = Convert.ToInt32(hex.Substring(1, 2), 16);
+                int green = Convert.ToInt32(hex.Substring(3, 4), 16);
+                int blue = Convert.ToInt32(hex.Substring(5, 6), 16);
+
+                redSlider.Value = red;
+                greenSlider.Value = green;
+                blueSlider.Value = blue;
+                */
+            }
+        };
+
+
 
         var layout = new VerticalStackLayout
         {
@@ -70,18 +111,29 @@ public partial class RGBSlider : ContentPage
             }
         };
 
-        var colorDisplayLayout = new VerticalStackLayout
+        var Frame = new HorizontalStackLayout
         {
-            Children = { HexLabel, colorDisplay  }
+            Spacing = 10,
+            HorizontalOptions = LayoutOptions.Center,
+            Margin = new Thickness(10, 10, 10, 10),
+            Children = { HexLabel, SaveBtn }
         };
 
+        var colorDisplayLayout = new VerticalStackLayout
+        {
+            Children = { Frame, colorDisplay, inputHex  }
+        };
+
+        
         var mainLayout = new VerticalStackLayout
         {
             Padding = 20,
             Spacing = 10,
-            Children = { layout, colorDisplayLayout }
+            Children = { layout, colorDisplayLayout}
         };
         
+
+
          
         
 
@@ -90,6 +142,14 @@ public partial class RGBSlider : ContentPage
         blueSlider.ValueChanged += (sender, e) => UpdateColor();
 
         Content = mainLayout;
+    }
+
+    private bool IsValidHex(string hex)
+    {
+        if (string.IsNullOrEmpty(hex) || hex.Length != 7 || hex[0] != '#')
+            return false;
+
+        return System.Text.RegularExpressions.Regex.IsMatch(hex.Substring(1), @"^[0-9A-Fa-f]{6}$");
     }
 
     private void UpdateColor()

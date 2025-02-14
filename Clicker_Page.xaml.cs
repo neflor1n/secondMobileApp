@@ -14,7 +14,6 @@ public partial class Clicker_Page : ContentPage
 
     public Clicker_Page(int k)
     {
-        InitializeComponent();
 
         Title = "Clicker";
 

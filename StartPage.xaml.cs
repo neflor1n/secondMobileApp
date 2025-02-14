@@ -34,6 +34,7 @@ public partial class StartPage : ContentPage
             Button nupp = new Button()
             {
                 Text = tekstid[i],
+                Margin = new Thickness(0, 5, 0, 5),
                 BackgroundColor = Color.FromArgb("#03405C"),
                 TextColor = Color.FromArgb("#38ebcb"),
                 FontFamily = "Minecraft",
