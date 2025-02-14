@@ -3,38 +3,40 @@
              x:Class="secondMobileApp.Valgusfoor"
              Title="Valgusfoor">
 
-    <VerticalStackLayout Padding="20" Spacing="15">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-        <StackLayout>
-            <Label x:Name="statusLabel"
-           Text="Valgusfoor on välja lülitatud"
-           FontSize="22"
-           HorizontalOptions="Center" FontFamily="Minecraft" />
+            <StackLayout>
+                <Label x:Name="statusLabel"
+                       Text="Valgusfoor on välja lülitatud"
+                       FontSize="22"
+                       HorizontalOptions="Center" FontFamily="Minecraft" />
 
-            <Label x:Name="DayOrNight"
-           Text=""
-           FontSize="12"
-           HorizontalOptions="Center"  FontFamily="Minecraft"/>    
+                <Label x:Name="DayOrNight"
+                       Text=""
+                       FontSize="12"
+                       HorizontalOptions="Center"  FontFamily="Minecraft"/>
 
-        </StackLayout>
+            </StackLayout>
 
-        <!-- Контейнер для светофора -->
-        <VerticalStackLayout x:Name="trafficLightContainer"
-                             Spacing="10"
-                             HorizontalOptions="Center"
-                             VerticalOptions="Center">
+            <!-- Контейнер для светофора -->
+            <VerticalStackLayout x:Name="trafficLightContainer"
+                                         Spacing="10"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+            </VerticalStackLayout>
+
+            <!-- Кнопки управления -->
+            <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto" HorizontalOptions="Center" RowSpacing="10" ColumnSpacing="5" >
+                <Button Text="Sisse" Clicked="TurnOnLight" Grid.Row="0" Grid.Column="0" FontFamily="Minecraft" FontSize="20"/>
+                <Button Text="Välja" Clicked="TurnOffLight" Grid.Row="0" Grid.Column="1" FontFamily="Minecraft" FontSize="20"/>
+                <Button Text="Auto Mode" Clicked="StartAutoMode" Grid.Row="0" Grid.Column="2" FontFamily="Minecraft" FontSize="20"/>
+                <Button Text="Päev ja öö mode" Clicked="DayAndNightMode" Grid.Row="1" Grid.Column="0" FontFamily="Minecraft" FontSize="20" />
+                <Button Text="värv halliks" Clicked = "ChangeColorToGray" Grid.Row="1" Grid.Column="1" FontFamily="Minecraft" FontSize="20" WidthRequest="230" Margin="120, 0, 0, 0"/>
+            </Grid>
+
+
+
         </VerticalStackLayout>
-
-        <!-- Кнопки управления -->
-        <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto" HorizontalOptions="Center" RowSpacing="10" ColumnSpacing="5" >
-            <Button Text="Sisse" Clicked="TurnOnLight" Grid.Row="0" Grid.Column="0" FontFamily="Minecraft" FontSize="20"/>
-            <Button Text="Välja" Clicked="TurnOffLight" Grid.Row="0" Grid.Column="1" FontFamily="Minecraft" FontSize="20"/>
-            <Button Text="Auto Mode" Clicked="StartAutoMode" Grid.Row="0" Grid.Column="2" FontFamily="Minecraft" FontSize="20"/>
-            <Button Text="Päev ja öö mode" Clicked="DayAndNightMode" Grid.Row="1" Grid.Column="0" FontFamily="Minecraft" FontSize="20" />
-            <Button Text="värv halliks" Clicked = "ChangeColorToGray" Grid.Row="1" Grid.Column="1" FontFamily="Minecraft" FontSize="20" WidthRequest="230" Margin="120, 0, 0, 0"/>
-        </Grid>
-
-
-
-    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

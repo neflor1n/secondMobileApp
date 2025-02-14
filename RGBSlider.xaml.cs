@@ -49,7 +49,7 @@ public partial class RGBSlider : ContentPage
 
         SaveBtn = new Button
         {
-            WidthRequest = 150,
+            WidthRequest = 200,
             HeightRequest = 40,
             CornerRadius = 15,
             Text = "Salvesta HexCode",
@@ -61,8 +61,7 @@ public partial class RGBSlider : ContentPage
         SaveBtn.Clicked += async (s, e) =>
         {
             await Clipboard.SetTextAsync(HexLabel.Text);
-            SaveBtn.Text = "Salvestatud";
-
+            await DisplayAlert("Salvestamine", "Salvestatud Clipboard'is", "OK");
         };
 
 
@@ -82,15 +81,17 @@ public partial class RGBSlider : ContentPage
             {
                 colorDisplay.Color = Color.FromArgb(hex);
                 HexLabel.Text = hex;
-                /*
+                
                 int red = Convert.ToInt32(hex.Substring(1, 2), 16);
-                int green = Convert.ToInt32(hex.Substring(3, 4), 16);
-                int blue = Convert.ToInt32(hex.Substring(5, 6), 16);
+                int green = Convert.ToInt32(hex.Substring(3, 2), 16);
+                int blue = Convert.ToInt32(hex.Substring(5, 2), 16);
 
-                redSlider.Value = red;
+                redSlider.Value = red; 
                 greenSlider.Value = green;
                 blueSlider.Value = blue;
-                */
+
+                
+                
             }
         };
 
@@ -131,17 +132,21 @@ public partial class RGBSlider : ContentPage
             Spacing = 10,
             Children = { layout, colorDisplayLayout}
         };
-        
 
 
-         
-        
+
+       
+
+
 
         redSlider.ValueChanged += (sender, e) => UpdateColor();
         greenSlider.ValueChanged += (sender, e) => UpdateColor();
         blueSlider.ValueChanged += (sender, e) => UpdateColor();
 
-        Content = mainLayout;
+        Content = new ScrollView
+        {
+            Content = mainLayout
+        };
     }
 
     private bool IsValidHex(string hex)

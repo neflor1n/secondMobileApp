@@ -25,7 +25,7 @@ namespace secondMobileApp
         {
             InitializeComponent();
             CreateTrafficLight();
-           
+            
 
         } 
 
