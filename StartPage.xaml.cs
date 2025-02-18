@@ -3,11 +3,10 @@
 public partial class StartPage : ContentPage
 {
     public List<ContentPage> lehed = new List<ContentPage>() { new TextPage(0), new FigurePage(1), new Clicker_Page(2), new secondMobileApp.Valgusfoor(3), new Datetime_Page(4), new StepperSliderPage(5), new RGBSlider(6), new Lumememm(7)};
-    public List<String> tekstid = new List<string> { "Tee lahti TextPage", "Tee lahti FigurePage", "Clicker", "Valgusfoor", "DatePicker", "Stepper", "RGB Slider mudel", "LumememmApp" };
+    public List<String> tekstid = new List<string> { "Tee lahti TextPage", "Tee lahti FigurePage", "Clicker", "Valgusfoor", "DatePicker", "Stepper", "RGB Slider mudel", "LumememmApp"};
 
     ScrollView sv;
     VerticalStackLayout vst;
-
     public StartPage()
     {
         Title = "Avaleht";
@@ -51,7 +50,9 @@ public partial class StartPage : ContentPage
 
         
         sv = new ScrollView { Content = grid };
-        Content = sv;
+        Content = new ScrollView {
+            Content = sv
+        };
     }
 
     private async void Nupp_Clicked(object? sender, EventArgs e)

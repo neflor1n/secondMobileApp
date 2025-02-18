@@ -114,11 +114,13 @@ namespace secondMobileApp
                 Children = {sizeStepper}
 
             };
-
-            Content = new VerticalStackLayout
+            Content = new ScrollView
             {
-                Padding = 20,
-                Children = { actionLabel, snowmanLayout, controlBtns, controlSizes }
+                Content = new VerticalStackLayout
+                {
+                    Padding = 20,
+                    Children = { actionLabel, snowmanLayout, controlBtns, controlSizes }
+                }
             };
         }
 
