@@ -27,7 +27,7 @@
         <Grid x:Name="RestartGrid" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center">
             <VerticalStackLayout Spacing="10" Padding="10" BackgroundColor="LightGray">
                 <Label Text="Mäng on läbi!" FontSize="24" HorizontalOptions="Center"/>
-                <Button Text="Korrata mängu?z" Clicked="OnRestartClicked" HorizontalOptions="Center"/>
+                <Button Text="Korrata mängu?" Clicked="OnRestartClicked" HorizontalOptions="Center"/>
             </VerticalStackLayout>
         </Grid>
 
