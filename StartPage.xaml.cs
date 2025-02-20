@@ -2,8 +2,28 @@
 
 public partial class StartPage : ContentPage
 {
-    public List<ContentPage> lehed = new List<ContentPage>() { new TextPage(0), new FigurePage(1), new Clicker_Page(2), new secondMobileApp.Valgusfoor(3), new Datetime_Page(4), new StepperSliderPage(5), new RGBSlider(6), new Lumememm(7)};
-    public List<String> tekstid = new List<string> { "Tee lahti TextPage", "Tee lahti FigurePage", "Clicker", "Valgusfoor", "DatePicker", "Stepper", "RGB Slider mudel", "LumememmApp"};
+    public List<ContentPage> lehed = new List<ContentPage>() {
+        new TextPage(0),
+        new FigurePage(1),
+        new Clicker_Page(2),
+        new secondMobileApp.Valgusfoor(3), 
+        new Datetime_Page(4), 
+        new StepperSliderPage(5), 
+        new RGBSlider(6), 
+        new Lumememm(7),
+        new TickTackToe(8)
+    };
+    public List<String> tekstid = new List<string> { 
+        "Tee lahti TextPage", 
+        "Tee lahti FigurePage",
+        "Clicker",
+        "Valgusfoor",
+        "DatePicker",
+        "Stepper",
+        "RGB Slider mudel",
+        "LumememmApp",
+        "TickTackToe"
+    };
 
     ScrollView sv;
     VerticalStackLayout vst;
@@ -18,8 +38,11 @@ public partial class StartPage : ContentPage
         var backgroundImage = new Image
         {
             Source = "background.jpg", 
-            Aspect = Aspect.Fill 
+            Aspect = Aspect.Fill
+
+
         };
+
         grid.Children.Add(backgroundImage);
 
         
@@ -50,8 +73,10 @@ public partial class StartPage : ContentPage
 
         
         sv = new ScrollView { Content = grid };
-        Content = new ScrollView {
-            Content = sv
+        Content = new ScrollView
+        {
+            Content = sv,
+            VerticalOptions = LayoutOptions.Fill
         };
     }
 

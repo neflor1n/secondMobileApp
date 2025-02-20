@@ -11,6 +11,7 @@ namespace secondMobileApp
         private Frame head, body, baseCircle, bucket;
         private Label actionLabel;
         private Random random = new Random();
+        bool isMelt = false;
 
         public Lumememm(int k)
         {
@@ -86,6 +87,9 @@ namespace secondMobileApp
             Button meltButton = new Button { Text = "Sulata" };
             meltButton.Clicked += async (s, e) => await Melt();
 
+            Button ilmumaButton = new Button { Text = "Ilmuma" };
+            ilmumaButton.Clicked += async (s, e) => await Ilamuma();
+
             Stepper sizeStepper = new Stepper(0.5, 2, 1, 0.1);
             sizeStepper.ValueChanged += (s, e) => Resize(e.NewValue);
 
@@ -110,7 +114,7 @@ namespace secondMobileApp
             {
                 Orientation = StackOrientation.Horizontal,
                 HorizontalOptions = LayoutOptions.Center,
-                Padding = new Thickness(0, 50, 0,0 ),
+                Padding = new Thickness(0, 20, 0,0 ),
                 Children = {sizeStepper}
 
             };
@@ -119,10 +123,53 @@ namespace secondMobileApp
                 Content = new VerticalStackLayout
                 {
                     Padding = 20,
-                    Children = { actionLabel, snowmanLayout, controlBtns, controlSizes }
+                    Children = { actionLabel, snowmanLayout, controlBtns, ilmumaButton ,controlSizes }
                 }
             };
         }
+
+        private async Task Ilamuma()
+
+        {
+            actionLabel.Text = "Tegevus: Lumememm ilmub...";
+            if (isMelt)
+            {
+                double initialY = 200;
+                double targetY = 30;
+                double initialRotation = 45;
+                double targetRotation = 0;
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    double currentY = initialY + (targetY - initialY) * (i / 10.0);
+                    double currentRotation = initialRotation + (targetRotation - initialRotation) * (i / 10.0);
+
+                    AbsoluteLayout.SetLayoutBounds(bucket, new Rect(110, currentY, 60, 40));
+                    bucket.Rotation = currentRotation;
+
+                    await Task.Delay(100);
+                }
+
+                isMelt = false;
+            }
+
+            
+
+            for (int i = 0; i <= 10; i++)
+            {
+                double scale = i * 0.1;
+                head.Scale = scale;
+                body.Scale = scale;
+                baseCircle.Scale = scale;
+                await Task.Delay(200);
+            }
+
+            actionLabel.Text = "Tegevus: Lumememm on ilmunud!";
+
+           
+        }
+
+
 
         private void ToggleVisibility(bool isVisible)
         {
@@ -145,17 +192,39 @@ namespace secondMobileApp
         private async Task Melt()
         {
             actionLabel.Text = "Tegevus: Lumememm sulab...";
+
             for (int i = 10; i >= 0; i--)
             {
                 double scale = i / 10.0;
                 head.Scale = scale;
                 body.Scale = scale;
                 baseCircle.Scale = scale;
-                bucket.Scale = scale;
                 await Task.Delay(200);
             }
+
+            isMelt = true;
             actionLabel.Text = "Tegevus: Lumememm on sulanud!";
+
+            if (isMelt)
+            {
+                double initialY = 50; 
+                double targetY = 200;  
+                double initialRotation = 0;
+                double targetRotation = 45; 
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    double currentY = initialY + (targetY - initialY) * (i / 10.0);
+                    double currentRotation = initialRotation + (targetRotation - initialRotation) * (i / 10.0);
+
+                    AbsoluteLayout.SetLayoutBounds(bucket, new Rect(110, currentY, 60, 40));
+                    bucket.Rotation = currentRotation;
+
+                    await Task.Delay(100); 
+                }
+            }
         }
+
 
         private void Resize(double scale)
         {

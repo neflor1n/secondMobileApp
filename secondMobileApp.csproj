@@ -92,6 +92,9 @@
 	  <MauiXaml Update="TextPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="TickTackToe.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Timer_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

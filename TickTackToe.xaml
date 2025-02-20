@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="secondMobileApp.TickTackToe">
+
+    <VerticalStackLayout Spacing="25" Padding="30">
+
+        <Label Text="Tic-tac-toe" FontSize="32" HorizontalOptions="Center"/>
+
+        <!-- Игровое поле -->
+        <Grid x:Name="GameBoard" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto" HorizontalOptions="Center" >
+            <Button x:Name="Button00" Grid.Row="0" Grid.Column="0" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button01" Grid.Row="0" Grid.Column="1" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button02" Grid.Row="0" Grid.Column="2" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button10" Grid.Row="1" Grid.Column="0" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button11" Grid.Row="1" Grid.Column="1" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button12" Grid.Row="1" Grid.Column="2" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button20" Grid.Row="2" Grid.Column="0" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button21" Grid.Row="2" Grid.Column="1" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+            <Button x:Name="Button22" Grid.Row="2" Grid.Column="2" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
+        </Grid>
+
+        <!-- Сообщение о победителе -->
+        <Label x:Name="WinnerLabel" FontSize="24" HorizontalOptions="Center"/>
+
+        <!-- Grid с кнопкой для повтора игры, изначально скрыт -->
+        <Grid x:Name="RestartGrid" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center">
+            <VerticalStackLayout Spacing="10" Padding="10" BackgroundColor="LightGray">
+                <Label Text="Mäng on läbi!" FontSize="24" HorizontalOptions="Center"/>
+                <Button Text="Korrata mängu?z" Clicked="OnRestartClicked" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>
