@@ -11,7 +11,7 @@ public partial class StartPage : ContentPage
         new StepperSliderPage(5), 
         new RGBSlider(6), 
         new Lumememm(7),
-        new TickTackToe(8)
+        new TicTacToeChooser(8)
     };
     public List<String> tekstid = new List<string> { 
         "Tee lahti TextPage", 

@@ -9,7 +9,7 @@ namespace secondMobileApp
         private string[,] board = new string[3, 3];  // Игровое поле
         private bool gameOver = false;
 
-        public TickTackToe(int k)
+        public TickTackToe()
         {
             InitializeComponent();
         }

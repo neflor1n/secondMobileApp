@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="secondMobileApp.TicTacToeChooser"
+             Title="TicTacToeChooser">
+    <Grid>
+        <Image Source="background.jpg" Aspect="AspectFill" Opacity="1"/>
+        <VerticalStackLayout Spacing="25" Padding="30" >
+            <Label Text="Vali Tic-tac-toe mood" TextColor="White" FontSize="32" HorizontalOptions="Center" FontFamily="Minecraft"/>
+        
+            <VerticalStackLayout Spacing="50" Padding="20">
+                <Label Text="Vali mänguviis" FontSize="24" HorizontalOptions="Center" TextColor="White"/>
+
+                <HorizontalStackLayout Spacing="20">
+                    <Button x:Name="Bot" Text="Bot'iga" FontSize="26" FontFamily="Minecraft" Clicked="Bot_Clicked"/>
+                    <Button x:Name="Player" Text="Sõbraga" FontSize="26" FontFamily="Minecraft" Clicked="Player_Clicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
