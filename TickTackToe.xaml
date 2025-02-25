@@ -5,7 +5,7 @@
 
     <VerticalStackLayout Spacing="25" Padding="30">
 
-        <Label Text="Tic-tac-toe" FontSize="32" HorizontalOptions="Center"/>
+        <Label Text="Tic-tac-toe" FontSize="24" HorizontalOptions="Center" FontFamily="Minecraft"/>
 
         <!-- Игровое поле -->
         <Grid x:Name="GameBoard" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto" HorizontalOptions="Center" >

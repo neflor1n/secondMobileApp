@@ -59,6 +59,8 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Minecraft.ttf" />
 	  <None Remove="Resources\Images\background.jpg" />
+	  <None Remove="Resources\Images\bee.jpg" />
+	  <None Remove="Resources\Images\start.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -78,6 +80,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="LumememmApp.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="PickerImagePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="RGBSlider.xaml">

@@ -11,7 +11,8 @@ public partial class StartPage : ContentPage
         new StepperSliderPage(5), 
         new RGBSlider(6), 
         new Lumememm(7),
-        new TicTacToeChooser(8)
+        new TicTacToeChooser(8),
+        new PickerImagePage(9)
     };
     public List<String> tekstid = new List<string> { 
         "Tee lahti TextPage", 
@@ -22,7 +23,8 @@ public partial class StartPage : ContentPage
         "Stepper",
         "RGB Slider mudel",
         "LumememmApp",
-        "TickTackToe"
+        "TickTackToe",
+        "Image picker Page"
     };
 
     ScrollView sv;
@@ -76,7 +78,7 @@ public partial class StartPage : ContentPage
         Content = new ScrollView
         {
             Content = sv,
-            VerticalOptions = LayoutOptions.Fill
+            VerticalOptions = LayoutOptions.Fill //nmm
         };
     }
 

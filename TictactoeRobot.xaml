@@ -5,7 +5,7 @@
 
     <VerticalStackLayout Spacing="25" Padding="30">
 
-        <Label Text="Tic-tac-toe koos bot" FontSize="32" HorizontalOptions="Center"/>
+        <Label Text="Tic-tac-toe koos bot" FontSize="24" HorizontalOptions="Center" FontFamily="Minecraft"/>
 
         <Grid x:Name="GameBoard" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto" HorizontalOptions="Center" >
             <Button x:Name="Button00" Grid.Row="0" Grid.Column="0" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>

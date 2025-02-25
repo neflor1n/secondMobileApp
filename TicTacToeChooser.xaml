@@ -9,7 +9,7 @@
             <Label Text="Vali Tic-tac-toe mood" TextColor="White" FontSize="32" HorizontalOptions="Center" FontFamily="Minecraft"/>
         
             <VerticalStackLayout Spacing="50" Padding="20">
-                <Label Text="Vali mänguviis" FontSize="24" HorizontalOptions="Center" TextColor="White"/>
+                <Label Text="Vali mänguviis" FontSize="24" HorizontalOptions="Center" TextColor="White" FontFamily="Minecraft"/>
 
                 <HorizontalStackLayout Spacing="20">
                     <Button x:Name="Bot" Text="Bot'iga" FontSize="26" FontFamily="Minecraft" Clicked="Bot_Clicked"/>
