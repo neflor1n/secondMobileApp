@@ -12,8 +12,7 @@ public partial class StartPage : ContentPage
         new RGBSlider(6), 
         new Lumememm(7),
         new PickerImagePage(8),
-        new TicTacToeChooser(9),
-        new Tunniplann(10)
+        new TicTacToeChooser(9)
     };
     public List<String> tekstid = new List<string> { 
         "Tee lahti TextPage", 
@@ -25,8 +24,8 @@ public partial class StartPage : ContentPage
         "RGB Slider mudel",
         "LumememmApp",
         "Image picker Page",
-        "TickTackToe",
-        "Tunniplaan TARpv23"
+        "TickTackToe"
+        
     };
 
     ScrollView sv;

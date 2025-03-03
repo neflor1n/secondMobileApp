@@ -3,13 +3,18 @@
 public partial class TictactoeRobot : ContentPage
 {
     private string currentPlayer = "X";
-    private string[,] board = new string[3, 3]; 
+    private string[,] board = new string[3, 3];
     private bool gameOver = false;
     private Random randChoose = new Random();
+
+    private Color XColor = Colors.Red;
+    private Color OColor = Colors.Blue;
 
     public TictactoeRobot()
     {
         InitializeComponent();
+        // После инициализации компонента устанавливаем цвета для X и O
+        UpdateBoardColors();
     }
 
     private void OnCellClicked(object sender, EventArgs e)
@@ -22,9 +27,10 @@ public partial class TictactoeRobot : ContentPage
         int row = Grid.GetRow(clickedButton);
         int col = Grid.GetColumn(clickedButton);
 
-        if (board[row, col] != null) return; 
+        if (board[row, col] != null) return;
         board[row, col] = currentPlayer;
         clickedButton.Text = currentPlayer;
+        clickedButton.TextColor = currentPlayer == "X" ? XColor : OColor; // Устанавливаем цвет текста сразу
 
         if (CheckWin(currentPlayer))
         {
@@ -94,10 +100,10 @@ public partial class TictactoeRobot : ContentPage
 
         //  Углы
         int[,] corners = { { 0, 0 }, { 0, 2 }, { 2, 0 }, { 2, 2 } };
-        for (int i = 0; i < corners.GetLength(0); i++) 
+        for (int i = 0; i < corners.GetLength(0); i++)
         {
-            int row = corners[i, 0]; 
-            int col = corners[i, 1]; 
+            int row = corners[i, 0];
+            int col = corners[i, 1];
             if (string.IsNullOrEmpty(board[row, col]))
             {
                 PlaceMove(row, col);
@@ -122,7 +128,6 @@ public partial class TictactoeRobot : ContentPage
         }
     }
 
-
     private void PlaceMove(int row, int col)
     {
         foreach (var child in GameBoard.Children)
@@ -134,6 +139,7 @@ public partial class TictactoeRobot : ContentPage
                     board[row, col] = "O";
                 }
                 button.Text = "O";
+                button.TextColor = OColor; 
 
                 if (CheckWin("O"))
                 {
@@ -201,10 +207,99 @@ public partial class TictactoeRobot : ContentPage
             if (child is Button button)
             {
                 button.Text = "";
+                button.TextColor = Colors.Black; 
             }
         }
 
         WinnerLabel.Text = "";
         RestartGrid.IsVisible = false;
+    }
+
+    private void OnSaveColorsClicked(object sender, EventArgs e)
+    {
+        string xColorHex = XColorEntry.Text;
+        if (Color.TryParse(xColorHex, out Color parsedXColor))
+        {
+            XColor = parsedXColor;
+        }
+        else
+        {
+            DisplayAlert("Viga", "Kehtetu HEX-kood X-i jaoks", "OK");
+        }
+
+        string oColorHex = OColorEntry.Text;
+        if (Color.TryParse(oColorHex, out Color parsedOColor))
+        {
+            OColor = parsedOColor;
+        }
+        else
+        {
+            DisplayAlert("Viga", "Vale HEX-kood O jaoks", "OK");
+        }
+
+
+        UpdateBoardColors();
+    }
+
+    private void OnResetColorsClicked(object sender, EventArgs e)
+    {
+        XColor = Colors.Red;
+        OColor = Colors.Blue;
+
+        XColorEntry.Text = string.Empty;
+        OColorEntry.Text = string.Empty;
+
+        UpdateBoardColors();
+    }
+
+    private void UpdateBoardColors()
+    {
+        foreach (var button in GameBoard.Children)
+        {
+            if (button is Button btn)
+            {
+                if (btn.Text == "X")
+                {
+                    btn.TextColor = XColor;
+                }
+                else if (btn.Text == "O")
+                {
+                    btn.TextColor = OColor;
+                }
+            }
+        }
+    }
+
+    private async void OnSelectColorClicked(object sender, EventArgs e)
+    {
+        string selectedColor = await DisplayActionSheet("Select a Color", "Cancel", null,
+            "Red (#FF0000)", "Green (#00FF00)", "Blue (#0000FF)", "Yellow (#FFFF00)", "Cyan (#00FFFF)", "Magenta (#FF00FF)");
+
+        if (selectedColor != "Cancel")
+        {
+            string hexCode = selectedColor switch
+            {
+                "Red (#FF0000)" => "#FF0000",
+                "Green (#00FF00)" => "#00FF00",
+                "Blue (#0000FF)" => "#0000FF",
+                "Yellow (#FFFF00)" => "#FFFF00",
+                "Cyan (#00FFFF)" => "#00FFFF",
+                "Magenta (#FF00FF)" => "#FF00FF",
+                _ => "#FFFFFF"
+            };
+
+            await Clipboard.SetTextAsync(hexCode);
+
+            string copiedText = await Clipboard.GetTextAsync();
+
+            if (!string.IsNullOrEmpty(copiedText))
+            {
+                await DisplayAlert("Värv Copid", $"{selectedColor} on lõikelauale kopeeritud!", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Viga", "Arhiveeritud kopeeritud värviline lõikelaud.", "OK");
+            }
+        }
     }
 }

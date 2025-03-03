@@ -3,30 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="secondMobileApp.TictactoeRobot">
 
-    <VerticalStackLayout Spacing="25" Padding="30">
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30">
 
-        <Label Text="Tic-tac-toe koos bot" FontSize="24" HorizontalOptions="Center" FontFamily="Minecraft"/>
+            <Label Text="Tic-tac-toe koos bot" FontSize="24" HorizontalOptions="Center" FontFamily="Minecraft"/>
 
-        <Grid x:Name="GameBoard" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto" HorizontalOptions="Center" >
-            <Button x:Name="Button00" Grid.Row="0" Grid.Column="0" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button01" Grid.Row="0" Grid.Column="1" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button02" Grid.Row="0" Grid.Column="2" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button10" Grid.Row="1" Grid.Column="0" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button11" Grid.Row="1" Grid.Column="1" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button12" Grid.Row="1" Grid.Column="2" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button20" Grid.Row="2" Grid.Column="0" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button21" Grid.Row="2" Grid.Column="1" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-            <Button x:Name="Button22" Grid.Row="2" Grid.Column="2" FontSize="36" Clicked="OnCellClicked" Margin="0, 0, 10, 10"/>
-        </Grid>
+            <Grid x:Name="GameBoard" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto" HorizontalOptions="Center" >
+                <Button x:Name="Button00" Grid.Row="0" Grid.Column="0" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button01" Grid.Row="0" Grid.Column="1" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button02" Grid.Row="0" Grid.Column="2" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button10" Grid.Row="1" Grid.Column="0" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button11" Grid.Row="1" Grid.Column="1" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button12" Grid.Row="1" Grid.Column="2" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button20" Grid.Row="2" Grid.Column="0" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button21" Grid.Row="2" Grid.Column="1" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+                <Button x:Name="Button22" Grid.Row="2" Grid.Column="2" FontSize="30" Clicked="OnCellClicked" Margin="0, 0, 10, 10" HeightRequest="70" WidthRequest="60" FontFamily="Minecraft"/>
+            </Grid>
 
-        <Label x:Name="WinnerLabel" FontSize="24" HorizontalOptions="Center"/>
+            <Label x:Name="WinnerLabel" FontSize="24" HorizontalOptions="Center"/>
 
-        <Grid x:Name="RestartGrid" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center">
-            <VerticalStackLayout Spacing="10" Padding="10" BackgroundColor="LightGray">
-                <Label Text="Mäng on läbi!" FontSize="24" HorizontalOptions="Center"/>
-                <Button Text="Korrata mängu?" Clicked="OnRestartClicked" HorizontalOptions="Center"/>
-            </VerticalStackLayout>
-        </Grid>
+            <Grid x:Name="RestartGrid" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center">
+                <VerticalStackLayout Spacing="10" Padding="10" BackgroundColor="LightGray">
+                    <Label Text="Mäng on läbi!" FontSize="24" HorizontalOptions="Center"/>
+                    <Button Text="Korrata mängu?" Clicked="OnRestartClicked" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
 
-    </VerticalStackLayout>
+
+            <Grid x:Name="ColorGrid" HorizontalOptions="Center" VerticalOptions="Center">
+                <VerticalStackLayout Spacing="10" Padding="10" >
+                    <Label Text="Värv X (HEX)" FontFamily="Minecraft" FontSize="17"/>
+                    <Entry x:Name="XColorEntry" Placeholder="#FF0000" FontSize="16" FontFamily="Minecraft"/>
+
+                    <Label Text="Värv O (HEX)" FontSize="17" FontFamily="Minecraft"/>
+                    <Entry x:Name="OColorEntry" Placeholder="#0000FF" FontSize="16" FontFamily="Minecraft"/>
+
+                    <Button Text="Salvesta värv" Clicked="OnSaveColorsClicked" FontFamily="Minecraft"/>
+                    <Button Text="Lähtesta värv" Clicked="OnResetColorsClicked" FontFamily="Minecraft"/>
+
+
+                </VerticalStackLayout>
+            </Grid>
+
+            <Button Text="Select Color and Copy HEX" Clicked="OnSelectColorClicked" HorizontalOptions="Center"/>
+            
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
