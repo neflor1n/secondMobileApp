@@ -12,7 +12,9 @@ public partial class StartPage : ContentPage
         new RGBSlider(6), 
         new Lumememm(7),
         new PickerImagePage(8),
-        new TicTacToeChooser(9)
+        new TicTacToeChooser(9),
+        new PopUp_Page(10),
+        new PopUp_kasutamisvoimalused.userChooser(11)
     };
     public List<String> tekstid = new List<string> { 
         "Tee lahti TextPage", 
@@ -24,7 +26,9 @@ public partial class StartPage : ContentPage
         "RGB Slider mudel",
         "LumememmApp",
         "Image picker Page",
-        "TickTackToe"
+        "TickTackToe",
+        "PopUp Page",
+        "Mini mängud"
         
     };
 
