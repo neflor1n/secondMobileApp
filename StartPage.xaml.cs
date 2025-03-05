@@ -14,7 +14,9 @@ public partial class StartPage : ContentPage
         new PickerImagePage(8),
         new TicTacToeChooser(9),
         new PopUp_Page(10),
-        new PopUp_kasutamisvoimalused.userChooser(11)
+        new PopUp_kasutamisvoimalused.userChooser(11),
+        new Table_Page(12),
+        new Sobrade_KontakteAndmed.kontaktid(13)
     };
     public List<String> tekstid = new List<string> { 
         "Tee lahti TextPage", 
@@ -28,8 +30,9 @@ public partial class StartPage : ContentPage
         "Image picker Page",
         "TickTackToe",
         "PopUp Page",
-        "Mini mängud"
-        
+        "Mini mängud",
+        "Table Page",
+        "Sõbrade kontaktandmed"
     };
 
     ScrollView sv;

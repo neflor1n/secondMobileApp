@@ -61,6 +61,7 @@
 	  <None Remove="Resources\Fonts\Minecraft.ttf" />
 	  <None Remove="Resources\Images\background.jpg" />
 	  <None Remove="Resources\Images\bee.jpg" />
+	  <None Remove="Resources\Images\ewkere.jpg" />
 	  <None Remove="Resources\Images\start.jpg" />
 	</ItemGroup>
 
@@ -102,10 +103,16 @@
 	  <MauiXaml Update="RGBSlider.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Sobrade_KontakteAndmed\kontaktid.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="StartPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="StepperSliderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Table_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="TextPage.xaml">

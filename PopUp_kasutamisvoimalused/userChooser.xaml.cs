@@ -1,3 +1,7 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+
 namespace secondMobileApp.PopUp_kasutamisvoimalused
 {
     public partial class userChooser : ContentPage
@@ -45,6 +49,9 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused
                 Margin = new Thickness(0, 0, 0, 20)
             };
 
+
+        
+
             reg.Clicked += async (s, e) =>
             {
                 string name = await DisplayPromptAsync("Nimi sisestamine", "Palun, sisestage oma nimi:", placeholder: "Nimi");
@@ -53,9 +60,31 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused
                 {
                     UserInfo.UserName = name;
 
-                    foreach (Button nupp in vst.Children)  
+                    try
                     {
-                        nupp.IsVisible = true;  
+                        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..","mangud", "usersInfo.txt");
+
+                        Debug.WriteLine($"File Path: {filePath}");
+
+                        string directory = Path.GetDirectoryName(filePath);
+                        if (!Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        File.AppendAllText(filePath, name + Environment.NewLine);
+
+                        Debug.WriteLine($"Name saved to file: {name}");
+
+                        foreach (Button nupp in vst.Children)
+                        {
+                            nupp.IsVisible = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Display error message if there is any issue with file writing
+                        await DisplayAlert("Viga", $"Error saving name: {ex.Message}", "OK");
                     }
                 }
                 else
@@ -63,6 +92,9 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused
                     await DisplayAlert("Viga", "Palun, sisestage oma nimi", "OK");
                 }
             };
+
+
+
 
             Content = new StackLayout
             {
