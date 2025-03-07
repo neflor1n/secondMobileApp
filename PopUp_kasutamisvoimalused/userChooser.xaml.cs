@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace secondMobileApp.PopUp_kasutamisvoimalused
 {
@@ -22,7 +23,10 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused
 
         public userChooser(int k)
         {
+
+
             vst = new VerticalStackLayout();  
+
             for (int i = 0; i < tekstid.Count; i++)
             {
                 Button nupp = new Button()
@@ -48,48 +52,63 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused
                 HorizontalOptions = LayoutOptions.Center,
                 Margin = new Thickness(0, 0, 0, 20)
             };
-
-
-        
-
+            
             reg.Clicked += async (s, e) =>
             {
-                string name = await DisplayPromptAsync("Nimi sisestamine", "Palun, sisestage oma nimi:", placeholder: "Nimi");
-
-                if (!string.IsNullOrEmpty(name))
+                try
                 {
-                    UserInfo.UserName = name;
+                    string name = await DisplayPromptAsync("Nimi sisestamine", "Palun, sisestage oma nimi:", placeholder: "Nimi");
 
-                    try
+                    if (!string.IsNullOrEmpty(name))
                     {
-                        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..","mangud", "usersInfo.txt");
+                        UserInfo.UserName = name;
 
-                        Debug.WriteLine($"File Path: {filePath}");
+                        // Для Android и других мобильных платформ = ApplicationData
+                        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-                        string directory = Path.GetDirectoryName(filePath);
-                        if (!Directory.Exists(directory))
+                        // Устанавливаем путь для хранения файла
+                        string fileName = "usersInfo.txt";
+                        string filePath = Path.Combine(folderPath, fileName);
+
+                        if (!File.Exists(filePath))
                         {
-                            Directory.CreateDirectory(directory);
+                            Debug.WriteLine("File does not exist, creating new file.");
                         }
 
+                        Debug.WriteLine($"Attempting to write to file at {filePath}");
                         File.AppendAllText(filePath, name + Environment.NewLine);
 
-                        Debug.WriteLine($"Name saved to file: {name}");
+                        string fileContent = File.ReadAllText(filePath);
+
+                        Debug.WriteLine($"File content: {fileContent}");
+                        for (int i = 0; i != 100; i++)
+                            Debug.WriteLine($"Name saved to file: {filePath}");
 
                         foreach (Button nupp in vst.Children)
                         {
                             nupp.IsVisible = true;
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        // Display error message if there is any issue with file writing
-                        await DisplayAlert("Viga", $"Error saving name: {ex.Message}", "OK");
+                        await DisplayAlert("Viga", "Palun, sisestage oma nimi", "OK");
                     }
                 }
-                else
+                catch (UnauthorizedAccessException uaEx)
                 {
-                    await DisplayAlert("Viga", "Palun, sisestage oma nimi", "OK");
+                    Debug.WriteLine($"Permission error: {uaEx.Message}");
+                    await DisplayAlert("Viga", $"Error saving name: {uaEx.Message}", "OK");
+                }
+                catch (IOException ioEx)
+                {
+                    Debug.WriteLine($"I/O error: {ioEx.Message}");
+                    await DisplayAlert("Viga", $"Error saving name: {ioEx.Message}", "OK");
+                }
+                catch (Exception ex)
+                {
+                    // Общая ошибка
+                    Debug.WriteLine($"Error saving name: {ex.Message}");
+                    await DisplayAlert("Viga", $"Error saving name: {ex.Message}", "OK");
                 }
             };
 
@@ -100,7 +119,7 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused
             {
                 Children = {
                     reg,
-                    vst  
+                    vst
                 }
             };
         }

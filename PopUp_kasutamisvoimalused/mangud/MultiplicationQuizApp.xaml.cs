@@ -22,21 +22,7 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused.mangud
         public MultiplicationQuizApp(int k)
         {
             InitializeComponent();
-            UpdateGreeting(); 
         }
-
-        private void UpdateGreeting()
-        {
-            if (!string.IsNullOrEmpty(UserInfo.UserName))
-            {
-                greetingLabel.Text = $"Tere, {UserInfo.UserName}!"; 
-            }
-            else
-            {
-                greetingLabel.Text = "Tere, kasutaja!"; 
-            }
-        }
-
         private async void OnStartQuizButtonClicked(object sender, EventArgs e)
         {
             _currentQuestionIndex = 0;
@@ -51,7 +37,7 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused.mangud
             {
                 var question = _questions[_currentQuestionIndex];
                 var correctAnswer = _answers[_currentQuestionIndex];
-
+                
                 string result = await DisplayPromptAsync("Viktoriini küsimus", question, maxLength: 2);
 
                 if (int.TryParse(result, out int userAnswer) && userAnswer == correctAnswer)
@@ -60,6 +46,7 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused.mangud
                 }
 
                 _currentQuestionIndex++;
+                Congra
                 await AskQuestion();
             }
             else

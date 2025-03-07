@@ -1,0 +1,5 @@
+﻿Mis on alati ees, aga seda ei ole näha?|Tulevik
+Kellel on käed, aga pole jalgu?|Kell
+Mida saab kinni püüda, aga ei saa visata?|Külm
+Mis läheb ära, aga tuleb alati tagasi?|Aeg
+Milline kuu on kõige lühem?|Veebruar

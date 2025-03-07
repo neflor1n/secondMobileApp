@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="secondMobileApp.PopUp_kasutamisvoimalused.userChooser"
              Title="userChooser">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid x:Name="MainGrid">
+        <Image Source="background.jpg" 
+               Aspect="AspectFill" 
+               HorizontalOptions="FillAndExpand" 
+               VerticalOptions="FillAndExpand"/>
+
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Welcome to .NET MAUI!" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

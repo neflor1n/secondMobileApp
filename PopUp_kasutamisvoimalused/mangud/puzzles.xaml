@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="secondMobileApp.PopUp_kasutamisvoimalused.mangud.puzzles">
+             x:Class="secondMobileApp.PopUp_kasutamisvoimalused.mangud.puzzles"
+             BackgroundImageSource="background.jpg">
 
     <VerticalStackLayout Spacing="25" Padding="30">
-        <Label Text="Загадки"
+        <Label Text="Mõistatused"
                FontSize="32"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center" 
+               TextColor="White"
+                FontFamily="Minecraft"/>
 
         <Label x:Name="riddleLabel"
-               Text="Нажмите кнопку для начала"
+               Text="Alustamiseks klõpsake nuppu"
                FontSize="24"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center" 
+               TextColor="White"
+               FontFamily="Minecraft"/>
 
         <Entry x:Name="answerEntry"
-               Placeholder="Ваш ответ"
+               Placeholder="Teie vastus"
                FontSize="20"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center"
+               TextColor="White"
+                FontFamily="Minecraft"/>
 
         <Button x:Name="checkAnswerButton"
-                Text="Проверить"
+                Text="Kontrollige"
                 Clicked="OnCheckAnswerClicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                TextColor="White"
+                FontFamily="Minecraft"/>
 
         <Label x:Name="feedbackLabel"
                Text=""
                FontSize="18"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center" 
+               TextColor="White"
+                FontFamily="Minecraft"/>
     </VerticalStackLayout>
 
 </ContentPage>

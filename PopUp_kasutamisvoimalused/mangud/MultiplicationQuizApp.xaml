@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="secondMobileApp.PopUp_kasutamisvoimalused.mangud.MultiplicationQuizApp">
+             x:Class="secondMobileApp.PopUp_kasutamisvoimalused.mangud.MultiplicationQuizApp"
+             BackgroundImageSource="background.jpg">
 
     <VerticalStackLayout Spacing="25" Padding="30">
-        <Label x:Name="greetingLabel"
-               Text="Tere, kasutaja!"
-               FontSize="32"
-               HorizontalOptions="Center" />
-
         <Label Text="Korrutustabeli viktoriin"
                FontSize="32"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center"
+               TextColor="White"
+                FontFamily="Minecraft"/>
 
         <Label x:Name="questionLabel"
                Text="Viktoriini alustamiseks klõpsake nuppu"
-               FontSize="24"
-               HorizontalOptions="Center" />
+               FontSize="18"
+               HorizontalOptions="Center" 
+               TextColor="White"
+                FontFamily="Minecraft"/>
 
         <Button x:Name="startQuizButton"
                 Text="Alusta viktoriini"
                 Clicked="OnStartQuizButtonClicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" 
+                TextColor="White"
+                FontFamily="Minecraft"/>
 
+        <Label x:Name="Congratulations"
+               Text=""
+               FontSize="18"
+               HorizontalOptions="Center"
+               TextColor="White"
+               FontFamily="Minecraft"/>
         <Label x:Name="scoreLabel"
                Text="Õiged vastused: 0"
                FontSize="18"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center" 
+               TextColor="White"
+                FontFamily="Minecraft"/>
     </VerticalStackLayout>
 
 </ContentPage>

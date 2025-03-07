@@ -58,11 +58,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\AboutAssets.txt" />
+	  <MauiAsset Remove="Resources\Raw\riddles.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Fonts\Minecraft.ttf" />
 	  <None Remove="Resources\Images\background.jpg" />
 	  <None Remove="Resources\Images\bee.jpg" />
 	  <None Remove="Resources\Images\ewkere.jpg" />
 	  <None Remove="Resources\Images\start.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Raw\AboutAssets.txt" />
+	  <EmbeddedResource Include="Resources\Raw\riddles.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Include="PopUp_kasutamisvoimalused\usersInfo.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
