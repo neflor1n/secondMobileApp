@@ -46,8 +46,29 @@ namespace secondMobileApp.PopUp_kasutamisvoimalused.mangud
                 }
 
                 _currentQuestionIndex++;
-                Congra
+                switch (correctAnswer)
+                {
+                    case 1:
+                        Congratulations.Text = "Halb!";
+                        break;
+                    case 2:
+                        Congratulations.Text = "Kena!";
+                        break;
+                    case 3:
+                        Congratulations.Text = "Väga hea!";
+                        break;
+                    case 4:
+                        Congratulations.Text = "Suurepärane!";
+                        break;
+                    case 5:
+                        Congratulations.Text = "Tubli!";
+                        break;
+                    default:
+                        Congratulations.Text = "Vastasid valesti!";
+                        break;
+                }
                 await AskQuestion();
+                
             }
             else
             {
