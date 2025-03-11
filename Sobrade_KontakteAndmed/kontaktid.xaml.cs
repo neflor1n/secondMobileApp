@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.ApplicationModel.Communication;
+using System.Text.RegularExpressions;
 
 namespace secondMobileApp.Sobrade_KontakteAndmed;
 
@@ -37,12 +39,6 @@ public partial class kontaktid : ContentPage
         deletePersonBtn = new Button { Text = "Kustuta inimene" };
         deletePersonBtn.Clicked += DeletePersonBtn_Clicked;
 
-        sendEmailBtn = new Button { Text = "Saada email" };
-        sendEmailBtn.Clicked += SendEmailBtn_Clicked;
-
-        callBtn = new Button { Text = "Helista" };
-        callBtn.Clicked += CallBtn_Clicked;
-
         peopleSection = new TableSection("Inimesed");
 
         
@@ -64,18 +60,20 @@ public partial class kontaktid : ContentPage
                 addPhotoBtn,
                 addPersonBtn,
                 showAllBtn,
-                deletePersonBtn,
-                sendEmailBtn,
-                callBtn,
                 tabelview
             }
         };
 
-        
-        Content = new ScrollView { Content = mainLayout };
 
+        Content = new ScrollView { Content = mainLayout };
     }
 
+
+    bool IsValidPhoneNumber(string phoneNumber)
+    {
+        string pattern = @"^\+?[0-9\s\-\(\)]{7,20}$"; 
+        return Regex.IsMatch(phoneNumber, pattern);
+    }
 
 
     private async void AddPhotoBtn_Clicked(object sender, EventArgs e)
@@ -89,10 +87,19 @@ public partial class kontaktid : ContentPage
 
     private void AddPersonBtn_Clicked(object sender, EventArgs e)
     {
-        if (!string.IsNullOrEmpty(nameEntry.Text))
+        if (string.IsNullOrWhiteSpace(nameEntry.Text) || string.IsNullOrWhiteSpace(phoneEntry.Text))
         {
-            peopleList.Add((nameEntry.Text, phoneEntry.Text, emailEntry.Text, userPhoto.Source));
+            DisplayAlert("Viga", "Nimi ja telefoninumber ei tohi olla tühjad", "OK");
+            return;
         }
+
+        if (!IsValidPhoneNumber(phoneEntry.Text))
+        {
+            DisplayAlert("Viga", "Sisestage kehtiv telefoninumber", "OK");
+            return;
+        }
+
+        peopleList.Add((nameEntry.Text, phoneEntry.Text, emailEntry.Text, userPhoto.Source));
     }
 
 
@@ -103,7 +110,6 @@ public partial class kontaktid : ContentPage
         {
             peopleSection.Clear();
             showAllBtn.Text = "Näita kõiki kasutajaid andmed";
-
             (Content as ScrollView).Content = mainLayout;
         }
         else
@@ -132,6 +138,37 @@ public partial class kontaktid : ContentPage
                 }
                 };
 
+                var emailButton = new Button
+                {
+                    Text = "✉ Lisa Email",
+                    FontSize = 14
+                };
+                emailButton.Clicked += (s, args) => Launcher.OpenAsync($"mailto:{person.Email}");
+
+                var messageButton = new Button
+                {
+                    Text = "💬 Lisa sõnum",
+                    FontSize = 14
+                };
+                messageButton.Clicked += async (s, args) =>
+                {
+                    var smsUri = $"sms:{person.Phone}";
+                    await Launcher.OpenAsync(smsUri);
+                };
+
+
+                var callButton = new Button
+                {
+                    Text = "📞 Helista",
+                    FontSize = 14
+                };
+                callButton.Clicked += async (s, args) =>
+                {
+                    var telUri = $"tel:{person.Phone}";
+                    await Launcher.OpenAsync(telUri);
+                };
+
+
                 var deleteButton = new Button
                 {
                     Text = "❌",
@@ -139,32 +176,76 @@ public partial class kontaktid : ContentPage
                     HorizontalOptions = LayoutOptions.EndAndExpand,
                     VerticalOptions = LayoutOptions.Center
                 };
-
                 deleteButton.Clicked += (s, args) =>
                 {
+                    // Найдём индекс элемента в списке
                     var index = peopleList.IndexOf(person);
                     if (index >= 0)
                     {
+                        // Удаляем элемент из списка данных
                         peopleList.RemoveAt(index);
-                        peopleSection.RemoveAt(index);
+
+                        // Перезаполним секцию актуальными данными
+                        peopleSection.Clear();
+
+                        // Добавляем всех пользователей обратно в секцию
+                        foreach (var p in peopleList)
+                        {
+                            peopleSection.Add(new ViewCell
+                            {
+                                View = new StackLayout
+                                {
+                                    Orientation = StackOrientation.Horizontal,
+                                    Children = {
+                        new Label { Text = p.Name },
+                        new Label { Text = p.Phone }
+                    }
+                                }
+                            });
+                        }
+
+                        // Обновляем TableView
+                        tabelview.Root.Clear();
+
+                        // Сначала добавляем форму для нового пользователя
+                        tabelview.Root.Add(new TableSection("Lisa uus inimene") { nameEntry, phoneEntry, emailEntry });
+
+                        // Затем добавляем обновлённую секцию с пользователями
+                        tabelview.Root.Add(peopleSection);
                     }
                 };
 
+
+
+
+
+                var updateButton = new Button
+                {
+                    Text = "Uuenda",
+                    FontSize = 18,
+                    HorizontalOptions = LayoutOptions.EndAndExpand,
+                    VerticalOptions = LayoutOptions.Center
+                };
+
+
+
                 var frame = new Frame
                 {
-                    Content = new StackLayout { Children = { stackLayout, deleteButton } },
+                    Content = new StackLayout
+                    {
+                        Children = { stackLayout, emailButton, messageButton, callButton, deleteButton },
+                        Spacing = 5
+                    },
                     Padding = new Thickness(10),
                     Margin = new Thickness(10, 5),
                     BorderColor = Colors.Gray,
                     CornerRadius = 10,
-                    HasShadow = true,
-                    HeightRequest = 150
+                    HasShadow = true
                 };
 
                 peopleStack.Children.Add(frame);
             }
 
-            
             mainLayout.Children.Add(peopleStack);
             showAllBtn.Text = "Peida kõik kasutajad andmed";
         }
@@ -183,24 +264,6 @@ public partial class kontaktid : ContentPage
         {
             peopleList.RemoveAt(peopleList.Count - 1);
             peopleSection.RemoveAt(peopleSection.Count - 1);
-        }
-    }
-
-    private void SendEmailBtn_Clicked(object sender, EventArgs e)
-    {
-        if (peopleList.Count > 0)
-        {
-            var email = peopleList[^1].Email;
-            Launcher.OpenAsync($"mailto:{email}");
-        }
-    }
-
-    private void CallBtn_Clicked(object sender, EventArgs e)
-    {
-        if (peopleList.Count > 0)
-        {
-            var phone = peopleList[^1].Phone;
-            PhoneDialer.Open(phone);
         }
     }
 }
