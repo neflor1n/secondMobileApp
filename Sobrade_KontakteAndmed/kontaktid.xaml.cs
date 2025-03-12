@@ -21,6 +21,7 @@ public partial class kontaktid : ContentPage
     public kontaktid(int l)
     {
         peopleList = new List<(string, string, string, ImageSource)>();
+        peopleList.Add(("testInimene", "+37258862265", "bsergachev@gmail.com", null));
 
         nameEntry = new EntryCell { Label = "Nimi:", Placeholder = "Sisesta inimese nimi", Keyboard = Keyboard.Default };
         phoneEntry = new EntryCell { Label = "Telefon:", Placeholder = "Sisesta telefon", Keyboard = Keyboard.Telephone };
@@ -35,9 +36,6 @@ public partial class kontaktid : ContentPage
 
         showAllBtn = new Button { Text = "Näita kõiki kasutajaid" };
         showAllBtn.Clicked += ShowAllBtn_Clicked;
-
-        deletePersonBtn = new Button { Text = "Kustuta inimene" };
-        deletePersonBtn.Clicked += DeletePersonBtn_Clicked;
 
         peopleSection = new TableSection("Inimesed");
 
@@ -55,11 +53,10 @@ public partial class kontaktid : ContentPage
         {
             Children =
             {
-                 
-                userPhoto,
                 addPhotoBtn,
                 addPersonBtn,
                 showAllBtn,
+                userPhoto,
                 tabelview
             }
         };
@@ -85,6 +82,30 @@ public partial class kontaktid : ContentPage
         }
     }
 
+    bool IsValidEmail(string email)
+    {
+        // Паттерны для различных доменов
+        string gmailPattern = @"@gmail\.com$";
+        string mailPattern = @"@mail\.ru$";
+        string yahooPattern = @"@yahoo\.com$";
+        string outlookPattern = @"@outlook\.com$";
+        string protonmailPattern = @"@protonmail\.com$";
+        string icloudPattern = @"@icloud\.com$";
+
+        if (Regex.IsMatch(email, gmailPattern) ||
+            Regex.IsMatch(email, mailPattern) ||
+            Regex.IsMatch(email, yahooPattern) ||
+            Regex.IsMatch(email, outlookPattern) ||
+            Regex.IsMatch(email, protonmailPattern) ||
+            Regex.IsMatch(email, icloudPattern))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
     private void AddPersonBtn_Clicked(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(nameEntry.Text) || string.IsNullOrWhiteSpace(phoneEntry.Text))
@@ -99,7 +120,74 @@ public partial class kontaktid : ContentPage
             return;
         }
 
-        peopleList.Add((nameEntry.Text, phoneEntry.Text, emailEntry.Text, userPhoto.Source));
+        if (!IsValidEmail(emailEntry.Text))
+        {
+            DisplayAlert("Viga", "Sisestage kehtiv email address", "OK");
+            return;
+        }
+
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            peopleList.Add((nameEntry.Text, phoneEntry.Text, emailEntry.Text, userPhoto.Source));
+            nameEntry.Text = string.Empty;
+            emailEntry.Text = string.Empty;
+            phoneEntry.Text = string.Empty;
+        });
+    }
+
+    private async void AddOrUpdatePhoto_Clicked(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        if (button == null) return;
+
+        var person = (button.BindingContext as (string Name, string Phone, string Email, ImageSource Photo)?);
+        if (person == null) return;
+
+        string action = await DisplayActionSheet("Lisa foto", "Tühista", null, "Kasuta kaamerat", "Vali galeriist");
+
+        FileResult photo = null;
+        if (action == "Kasuta kaamerat")
+        {
+            if (MediaPicker.Default.IsCaptureSupported)
+            {
+                photo = await MediaPicker.CapturePhotoAsync();
+            }
+        }
+        else if (action == "Vali galeriist")
+        {
+            photo = await MediaPicker.PickPhotoAsync();
+        }
+
+        if (photo != null)
+        {
+            var newPhoto = ImageSource.FromFile(photo.FullPath);
+
+            // Обновление фото у пользователя
+            int index = peopleList.FindIndex(p => p.Phone == person.Value.Phone);
+            if (index >= 0)
+            {
+                peopleList[index] = (person.Value.Name, person.Value.Phone, person.Value.Email, newPhoto);
+            }
+
+            // Обновляем UI 
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                foreach (var frame in ((mainLayout.Children.Last() as StackLayout)?.Children.Cast<View>() ?? new List<View>()))
+                {
+                    if (frame is Frame userFrame && userFrame.Content is StackLayout userStack)
+                    {
+                        var img = userStack.Children[0] as Image;
+                        var nameLabel = (userStack.Children[1] as StackLayout)?.Children[0] as Label;
+
+                        if (nameLabel?.Text == person.Value.Name)
+                        {
+                            img.Source = newPhoto;
+                            break;
+                        }
+                    }
+                }
+            });
+        }
     }
 
 
@@ -108,14 +196,29 @@ public partial class kontaktid : ContentPage
     {
         if (isShowingAll)
         {
-            peopleSection.Clear();
+            // Убираю всех пользователей из mainLayout
+            var peopleStack = mainLayout.Children.FirstOrDefault(x => x is StackLayout && ((StackLayout)x).Children.FirstOrDefault() is Frame);
+            if (peopleStack != null)
+            {
+                mainLayout.Children.Remove(peopleStack);  
+            }
+
+            // Восстанавливаю первоначальный интерфейс 
+            if (mainLayout.Children.Contains(tabelview))
+            {
+                mainLayout.Children.Remove(tabelview);  // Убираб tabelview из родителя, если оно там уже есть
+            }
+
+            mainLayout.Children.Add(tabelview);  
+
             showAllBtn.Text = "Näita kõiki kasutajaid andmed";
-            (Content as ScrollView).Content = mainLayout;
         }
         else
         {
+            // Создаю StackLayout для отображения всех пользователей
             var peopleStack = new StackLayout { Spacing = 10 };
 
+            // Добавляю каждого пользователя
             foreach (var person in peopleList)
             {
                 var stackLayout = new StackLayout
@@ -156,6 +259,13 @@ public partial class kontaktid : ContentPage
                     await Launcher.OpenAsync(smsUri);
                 };
 
+                var addPhotoButton = new Button
+                {
+                    Text = "📸 Lisa foto",
+                    FontSize = 14
+                };
+                addPhotoButton.BindingContext = person;
+                addPhotoButton.Clicked += AddOrUpdatePhoto_Clicked;
 
                 var callButton = new Button
                 {
@@ -168,7 +278,6 @@ public partial class kontaktid : ContentPage
                     await Launcher.OpenAsync(telUri);
                 };
 
-
                 var deleteButton = new Button
                 {
                     Text = "❌",
@@ -176,64 +285,34 @@ public partial class kontaktid : ContentPage
                     HorizontalOptions = LayoutOptions.EndAndExpand,
                     VerticalOptions = LayoutOptions.Center
                 };
+                /*
                 deleteButton.Clicked += (s, args) =>
                 {
-                    // Найдём индекс элемента в списке
+                    // Найдем индекс элемента в списке
                     var index = peopleList.IndexOf(person);
                     if (index >= 0)
                     {
-                        // Удаляем элемент из списка данных
                         peopleList.RemoveAt(index);
 
-                        // Перезаполним секцию актуальными данными
-                        peopleSection.Clear();
-
-                        // Добавляем всех пользователей обратно в секцию
-                        foreach (var p in peopleList)
+                        // Удаляем соответствующие записи
+                        var cellsToRemove = peopleSection.Where((value, idx) => idx == index).ToList();
+                        foreach (var cell in cellsToRemove)
                         {
-                            peopleSection.Add(new ViewCell
-                            {
-                                View = new StackLayout
-                                {
-                                    Orientation = StackOrientation.Horizontal,
-                                    Children = {
-                        new Label { Text = p.Name },
-                        new Label { Text = p.Phone }
-                    }
-                                }
-                            });
+                            peopleSection.Remove(cell);  // Удаляем только ячейку с пользователем
                         }
 
-                        // Обновляем TableView
+                        // Обновляем TableView только для пользователей, не касаясь формы
                         tabelview.Root.Clear();
-
-                        // Сначала добавляем форму для нового пользователя
-                        tabelview.Root.Add(new TableSection("Lisa uus inimene") { nameEntry, phoneEntry, emailEntry });
-
-                        // Затем добавляем обновлённую секцию с пользователями
-                        tabelview.Root.Add(peopleSection);
+                        tabelview.Root.Add(new TableSection("Lisa uus inimene") { nameEntry, phoneEntry, emailEntry }); // Форма для добавления пользователя
+                        tabelview.Root.Add(peopleSection); // Секция с обновленными пользователями
                     }
                 };
-
-
-
-
-
-                var updateButton = new Button
-                {
-                    Text = "Uuenda",
-                    FontSize = 18,
-                    HorizontalOptions = LayoutOptions.EndAndExpand,
-                    VerticalOptions = LayoutOptions.Center
-                };
-
-
-
+                */
                 var frame = new Frame
                 {
                     Content = new StackLayout
                     {
-                        Children = { stackLayout, emailButton, messageButton, callButton, deleteButton },
+                        Children = { stackLayout, emailButton, messageButton, callButton, addPhotoButton, deleteButton },
                         Spacing = 5
                     },
                     Padding = new Thickness(10),
@@ -246,24 +325,10 @@ public partial class kontaktid : ContentPage
                 peopleStack.Children.Add(frame);
             }
 
+            // Добавляем новый список пользователей в mainLayout
             mainLayout.Children.Add(peopleStack);
             showAllBtn.Text = "Peida kõik kasutajad andmed";
         }
         isShowingAll = !isShowingAll;
-    }
-
-
-
-
-
-
-
-    private void DeletePersonBtn_Clicked(object sender, EventArgs e)
-    {
-        if (peopleList.Count > 0)
-        {
-            peopleList.RemoveAt(peopleList.Count - 1);
-            peopleSection.RemoveAt(peopleSection.Count - 1);
-        }
     }
 }
