@@ -39,7 +39,7 @@ public partial class kontaktid : ContentPage
 
         peopleSection = new TableSection("Inimesed");
 
-        
+
         tabelview = new TableView
         {
             Root = new TableRoot
@@ -68,7 +68,7 @@ public partial class kontaktid : ContentPage
 
     bool IsValidPhoneNumber(string phoneNumber)
     {
-        string pattern = @"^\+?[0-9\s\-\(\)]{7,20}$"; 
+        string pattern = @"^\+?[0-9\s\-\(\)]{7,20}$";
         return Regex.IsMatch(phoneNumber, pattern);
     }
 
@@ -200,7 +200,7 @@ public partial class kontaktid : ContentPage
             var peopleStack = mainLayout.Children.FirstOrDefault(x => x is StackLayout && ((StackLayout)x).Children.FirstOrDefault() is Frame);
             if (peopleStack != null)
             {
-                mainLayout.Children.Remove(peopleStack);  
+                mainLayout.Children.Remove(peopleStack);
             }
 
             // Восстанавливаю первоначальный интерфейс 
@@ -209,7 +209,7 @@ public partial class kontaktid : ContentPage
                 mainLayout.Children.Remove(tabelview);  // Убираб tabelview из родителя, если оно там уже есть
             }
 
-            mainLayout.Children.Add(tabelview);  
+            mainLayout.Children.Add(tabelview);
 
             showAllBtn.Text = "Näita kõiki kasutajaid andmed";
         }

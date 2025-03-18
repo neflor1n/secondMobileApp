@@ -1,4 +1,6 @@
-﻿namespace secondMobileApp;
+﻿using secondMobileApp.EuroopaRiigid;
+
+namespace secondMobileApp;
 
 public partial class StartPage : ContentPage
 {
@@ -16,7 +18,8 @@ public partial class StartPage : ContentPage
         new PopUp_Page(10),
         new PopUp_kasutamisvoimalused.userChooser(11),
         new Table_Page(12),
-        new Sobrade_KontakteAndmed.kontaktid(13)
+        new Sobrade_KontakteAndmed.kontaktid(13),
+        new Riiigd(14)
     };
     public List<String> tekstid = new List<string> { 
         "Tee lahti TextPage", 
@@ -32,7 +35,8 @@ public partial class StartPage : ContentPage
         "PopUp Page",
         "Mini mängud",
         "Table Page",
-        "Sõbrade kontaktandmed"
+        "Sõbrade kontaktandmed",
+        "Euroopa riigid"
     };
 
     ScrollView sv;

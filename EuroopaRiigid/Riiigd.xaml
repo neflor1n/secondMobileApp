@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="secondMobileApp.EuroopaRiigid.Riiigd"
+             Title="Riiigd">
+    <StackLayout Padding="20">
+        <Button Text="Lisa uus riik" Clicked="OpenAddRiikPage_Clicked"/>
+        <ListView x:Name="RiigidListView" SelectionMode="Single" ItemTapped="RiigidListView_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="{Binding Lipp}" WidthRequest="50" HeightRequest="30"/>
+                            <Label Text="{Binding Nimetus}" FontSize="20" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Eemalda valitud riik" Clicked="DeleteRiik_Clicked"/>
+    </StackLayout>
+</ContentPage>
+
+    
