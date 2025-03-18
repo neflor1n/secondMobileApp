@@ -43,10 +43,15 @@ namespace secondMobileApp.EuroopaRiigid
 
         private async void DeleteRiik_Clicked(object sender, EventArgs e)
         {
-            if (RiigidListView.SelectedItem is Riik selectedRiik)
+            var button = sender as Button;
+            if (button != null && button.CommandParameter is int riikId)
             {
-                await App.Database.DeleteRiikAsync(selectedRiik);
-                await LoadData();
+                var riikToDelete = await App.Database.GetRiikByIdAsync(riikId);
+                if (riikToDelete != null)
+                {
+                    await App.Database.DeleteRiikAsync(riikToDelete);
+                    await LoadData(); // Обновляем список после удаления
+                }
             }
         }
     }

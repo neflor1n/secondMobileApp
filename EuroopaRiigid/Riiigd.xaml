@@ -12,6 +12,10 @@
                         <StackLayout Orientation="Horizontal">
                             <Image Source="{Binding Lipp}" WidthRequest="50" HeightRequest="30"/>
                             <Label Text="{Binding Nimetus}" FontSize="20" VerticalOptions="Center"/>
+                            <Button Text="❌" Clicked="DeleteRiik_Clicked"
+                                    BackgroundColor="White" TextColor="Red"
+                                    CornerRadius="10" Padding="5"
+                                    CommandParameter="{Binding Id}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

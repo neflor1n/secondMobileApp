@@ -43,10 +43,19 @@ namespace secondMobileApp.EuroopaRiigid
             return _database.UpdateAsync(riik);
         }
 
+
+
         // Удаление страны
         public Task<int> DeleteRiikAsync(Riik riik)
         {
             return _database.DeleteAsync(riik);
         }
+
+        // Поиск страны по айди
+        public Task<Riik> GetRiikByIdAsync(int id)
+        {
+            return _database.Table<Riik>().FirstOrDefaultAsync(r => r.Id == id);
+        }
+
     }
 }
