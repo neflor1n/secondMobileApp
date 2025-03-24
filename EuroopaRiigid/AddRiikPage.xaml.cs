@@ -19,8 +19,9 @@
                     Nimetus = EntryNimetus.Text,
                     Pealinn = EntryPealinn.Text,
                     RahvastikuSuurus = int.Parse(EntryRahvastik.Text),
-                    Lipp = EntryLipp.Text
+                    Lipp = EntryLipp.Text                
                 };
+
 
                 await App.Database.AddRiikAsync(newRiik);
                 await Navigation.PopAsync(); 

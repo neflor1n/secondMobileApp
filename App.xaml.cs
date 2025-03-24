@@ -11,6 +11,7 @@
                 {
                     string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "riigid.db3");
                     database = new EuroopaRiigid.RiigidDatabase(dbPath);
+
                 }
                 return database;
             }

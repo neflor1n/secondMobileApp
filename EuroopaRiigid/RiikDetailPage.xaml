@@ -13,5 +13,6 @@
         <Label Text="{Binding Nimetus}" FontSize="24" FontAttributes="Bold"/>
         <Label Text="{Binding Pealinn}" FontSize="18"/>
         <Label Text="{Binding RahvastikuSuurus, StringFormat='Rahvaarv: {0:N0}'}" FontSize="16"/>
+
     </StackLayout>
 </ContentPage>

@@ -23,6 +23,7 @@ namespace secondMobileApp.EuroopaRiigid
         public int RahvastikuSuurus { get; set; } 
 
         [NotNull]
-        public string Lipp { get; set; } 
+        public string Lipp { get; set; }
+
     }
 }
