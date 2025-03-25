@@ -69,6 +69,8 @@
 	  <None Remove="Resources\Images\delete_icon.png" />
 	  <None Remove="Resources\Images\delete_icon2.png" />
 	  <None Remove="Resources\Images\ewkere.jpg" />
+	  <None Remove="Resources\Images\Icon_about.png" />
+	  <None Remove="Resources\Images\icon_notes.png" />
 	  <None Remove="Resources\Images\start.jpg" />
 	</ItemGroup>
 
@@ -110,6 +112,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="LumememmApp.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AboutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NotePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="PickerImagePage.xaml">
