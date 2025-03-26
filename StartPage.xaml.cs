@@ -19,7 +19,8 @@ public partial class StartPage : ContentPage
         new PopUp_kasutamisvoimalused.userChooser(11),
         new Table_Page(12),
         new Sobrade_KontakteAndmed.kontaktid(13),
-        new Riiigd(14)
+        new Riiigd(14),
+        new PracticalWorks.CarouselPages.CarousellPage(15)
     };
     public List<String> tekstid = new List<string> { 
         "Tee lahti TextPage", 
@@ -36,7 +37,8 @@ public partial class StartPage : ContentPage
         "Mini mängud",
         "Table Page",
         "Sõbrade kontaktandmed",
-        "Euroopa riigid"
+        "Euroopa riigid",
+        "CarouselPage"
     };
 
     ScrollView sv;

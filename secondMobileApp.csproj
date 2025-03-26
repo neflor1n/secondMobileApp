@@ -114,6 +114,9 @@
 	  <MauiXaml Update="LumememmApp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="PracticalWorks\CarouselPages\CarousellPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AboutPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -172,6 +175,12 @@
 
 	<ItemGroup>
 	  <Folder Include="ListsTheme\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="PracticalWorks\CarouselPages\CarousellPage.xaml.cs">
+	    <DependentUpon>CarousellPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
